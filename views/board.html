@@ -1,0 +1,266 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  
+    <div id="form_set">
+      <div class="buttons-container">
+        <button onclick="showJoinOptions()">스터디 참여하기</button>
+      </div>
+      <div class="options-container" id="joinForm" style="display: none">
+        <div>스터디를 찾아 볼까요?</div>
+        <br />
+        <p>목적</p>
+        <div class="options">
+          <div
+            class="option purpose"
+            onclick="toggleSelection('purpose', this)"
+          >
+            취업
+          </div>
+          <div
+            class="option purpose"
+            onclick="toggleSelection('purpose', this)"
+          >
+            자격증
+          </div>
+          <div
+            class="option purpose"
+            onclick="toggleSelection('purpose', this)"
+          >
+            공모전
+          </div>
+          <div
+            class="option purpose"
+            onclick="toggleSelection('purpose', this)"
+          >
+            자기계발
+          </div>
+        </div>
+
+        <p>분야</p>
+        <div class="options">
+          <div class="option field" onclick="toggleSelection('field', this)">
+            과학고학
+          </div>
+          <div class="option field" onclick="toggleSelection('field', this)">
+            IT
+          </div>
+          <div class="option field" onclick="toggleSelection('field', this)">
+            예체능
+          </div>
+          <div class="option field" onclick="toggleSelection('field', this)">
+            기획
+          </div>
+          <div class="option field" onclick="toggleSelection('field', this)">
+            마케팅
+          </div>
+        </div>
+
+        <p>시간</p>
+        <div class="options">
+          <div class="option time" onclick="toggleSelection('time', this)">
+            오전
+          </div>
+          <div class="option time" onclick="toggleSelection('time', this)">
+            오후
+          </div>
+          <div class="option time" onclick="toggleSelection('time', this)">
+            밤/새벽
+          </div>
+          <div class="option time" onclick="toggleSelection('time', this)">
+            주중
+          </div>
+          <div class="option time" onclick="toggleSelection('time', this)">
+            주말
+          </div>
+        </div>
+
+        <p>횟수</p>
+        <div class="options">
+          <div
+            class="option frequency"
+            onclick="toggleSelection('frequency', this)"
+          >
+            1
+          </div>
+          <div
+            class="option frequency"
+            onclick="toggleSelection('frequency', this)"
+          >
+            2
+          </div>
+          <div
+            class="option frequency"
+            onclick="toggleSelection('frequency', this)"
+          >
+            3
+          </div>
+          <div
+            class="option frequency"
+            onclick="toggleSelection('frequency', this)"
+          >
+            4
+          </div>
+          <div
+            class="option frequency"
+            onclick="toggleSelection('frequency', this)"
+          >
+            5
+          </div>
+          <div
+            class="option frequency"
+            onclick="toggleSelection('frequency', this)"
+          >
+            6
+          </div>
+          <div
+            class="option frequency"
+            onclick="toggleSelection('frequency', this)"
+          >
+            7
+          </div>
+        </div>
+
+        <p>방식</p>
+        <div class="options">
+          <div class="option method" onclick="toggleSelection('method', this)">
+            대면
+          </div>
+          <div class="option method" onclick="toggleSelection('method', this)">
+            비대면
+          </div>
+          <div class="option method" onclick="toggleSelection('method', this)">
+            상관없음
+          </div>
+        </div>
+        <br />
+        <button onclick="submitJoinForm()">제출</button>
+      </div>
+    </div>
+
+<style>
+.form_set {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #45a049;
+}
+.header {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.options-container {
+  text-align: center;
+  margin-top: 50px; /* 스페이싱을 추가해요 */
+  display: none; /* 기본적으로 숨겨둡니다 */
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px; /* 버튼 간격을 줄였어요 */
+}
+.option {
+  margin: 5px; /* 여백을 줄였어요 */
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.option.active {
+  font-weight: bold;
+  background-color: #3498db;
+  color: #fff;
+}
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4caf50; /* 버튼 색상 변경 */
+  color: #fff;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #45a049; /* 버튼 호버 색상 변경 */
+}
+input[type="text"],
+textarea {
+  width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+</style>
+<script>
+function toggleSelection(group, element) {
+  var elements = document.getElementsByClassName(group);
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].classList.remove("active");
+  }
+  element.classList.add("active");
+}
+
+function showJoinOptions() {
+  document.getElementById("joinForm").style.display = "block";
+}
+
+function submitJoinForm() {
+  var activeOptions = document.querySelectorAll(
+    "#joinForm .option.active"
+  );
+
+  if (activeOptions.length > 0) {
+    var formData = new URLSearchParams();
+    activeOptions.forEach(function (option) {
+      var group = option.classList[1]; // classList의 두 번째 클래스를 그룹으로 사용
+      var text = option.innerText;
+      if (!formData.hasOwnProperty(group)) {
+        formData.append(group,text);
+      }
+    });
+
+    console.log(formData.toString());
+    location.href = "/board/view?" + formData.toString();
+  } else {
+    alert("적어도 한 가지 옵션을 선택해주세요.");
+  }
+}
+
+window.onload = function () {
+  // 페이지가 로드될 때 생성하기 버튼을 활성화 상태로 설정합니다.
+  showCreateOptions();
+};
+</script>
+{% endblock %}

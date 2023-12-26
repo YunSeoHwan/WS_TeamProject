@@ -1,0 +1,118 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div id="form_set">
+      <h1>당신에게 추천하는 스터디에요!</h1>
+      <ul id="postList">
+        {% for study in studys %}
+        <li>
+          <h2 class="postTitle">{{study.shortText}}</h2>
+          <div class="postContent" style="display: none">
+            <input type="hidden" value="{{study.UserId}}" class="study-user-id">
+            <input type="hidden" value="{{study.id}}" class="study-id">
+            작성자 : <span>{{study.User.email}}</span>
+            <p>
+              {{study.longText}}
+            </p>
+            {% for like in study.Likers %}
+              {% if like.id != user.id %}
+              <button class="study-join">스터디 참여하기</button>
+              {% endif %}
+            {% endfor %}
+              
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+  </div>
+
+<script>
+  const contents = document.querySelectorAll(".postContent");
+  contents.forEach((content) => {
+    content.style.display = "none"; // 모든 게시글을 숨김
+  });
+
+  const titles = document.querySelectorAll(".postTitle");
+
+  titles.forEach((title) => {
+    title.addEventListener("click", () => {
+      const content = title.nextElementSibling;
+      if (
+        content.style.display === "none" ||
+        content.style.display === ""
+      ) {
+        content.style.display = "block";
+      } else {
+        content.style.display = "none";
+      }
+    });
+  });
+
+
+  document.querySelectorAll('.study-join').forEach(function(tag) {
+      tag.addEventListener('click', function() {
+        const myId = document.querySelector('#my-id');
+        if (myId) {
+          const userId = tag.parentNode.querySelector('.study-user-id').value;
+          const postId = tag.parentNode.querySelector('.study-id').value;
+        //  if (userId !== myId.value) {
+            if (confirm('스터디에 참여 하시겠습니까?')) {
+              axios.post(`/board/${postId}/join`)
+                .then(() => {
+                  location.reload();
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            }
+        //  }
+        }
+      });
+    });
+</script>
+
+<style>
+  .form_set {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    /*cursor: pointer;*/
+  }
+  li:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .postContent {
+    display: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+  }
+  .postTitle {
+    cursor: pointer;
+  }
+  li.active .postContent {
+    display: block;
+  }
+</style>
+{% endblock %}

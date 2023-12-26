@@ -1,0 +1,8 @@
+{% extends 'layout.html' %} {% block content %} {% if user and user.id %}
+<div style="text-align: center; margin-top: 50px">
+  <p>이름: <span>{{user.name}}</span></p>
+  <p>이메일: <span>{{user.email}}</span></p>
+  <p>로그인 경로: <span>{{user.provider}}</span></p>
+</div>
+<div style="margin-top: 400px"><br /></div>
+{% else %} 로그인 해주세요 {% endif %} {% endblock %}

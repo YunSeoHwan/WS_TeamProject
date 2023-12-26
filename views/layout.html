@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SCHIDA</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5BLP5VH9");
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-5BLP5VH9"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="header">
+      <div id="logo">
+        <a href="/"
+          ><img style="margin-left: 20px; height: 30px" src="/image/logo.png"
+        /></a>
+      </div>
+      <div id="menu">
+        <a href="/" class="active">홈</a>
+        {% if user and user.id %}
+        <input id="my-id" type="hidden" value="{{user.id}}" />
+        <a href="/board">게시판</a>
+        <a href="/profile">프로필</a>
+        <a href="/auth/logout">로그아웃</a>
+        {% else %}
+        <a href="/auth/login">로그인</a>
+        {% endif %}
+      </div>
+    </div>
+    {% block content %} {% endblock %}
+
+    <footer style="height: 120px; margin-top: 100px">
+      <br />
+      <p
+        style="
+          color: rgb(235, 235, 235);
+          text-align: center;
+          font-weight: bold;
+          margin-top: 10px;
+        "
+      >
+        스치다 (SCHIDA)
+      </p>
+      <p
+        style="
+          color: rgb(235, 235, 235);
+          text-align: center;
+          font-weight: bold;
+          margin-top: 10px;
+        "
+      >
+        Copyright 스치다팀 all right reserved
+      </p>
+    </footer>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      window.onload = () => {
+        if (new URL(location.href).searchParams.get("error")) {
+          alert(new URL(location.href).searchParams.get("error"));
+        }
+      };
+    </script>
+    {% block script %} {% endblock %}
+  </body>
+</html>

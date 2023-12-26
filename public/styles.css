@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 30px;
+    height:50px;
+}
+
+#logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+#menu {
+    display: flex;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#menu a {
+    text-decoration: none;
+    color: black;
+    margin:20px;
+}
+
+#login {
+    background-color: #000;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+#content {
+    text-align: center;
+    padding: 50px;
+}
+
+
+
+#image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+}
+
+#header, #menu {
+    display: flex;
+    align-items: center;
+}
+
+#menu a.active {
+    background-color: #000;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+#subMenu {
+    position: absolute;
+    margin-top:100px;
+    float:left;
+    width:10px;
+    background-color: #fff;
+    padding: 10px;
+  }
+  
+  ul li{
+      list-style: none;
+  }
+
+  footer {
+    background-image: url('/image/img_footer.png');
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+  }
